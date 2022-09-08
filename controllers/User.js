@@ -119,11 +119,25 @@ const registerUser= async (req,res,next) => {
                 console.log(error);
             }
         }
+        const deleteUser=async(req,res)=>{
+            const{id}=req.params;
+            try{
+            await User.findByIdAndDelete(id)
+            res.status(200).json({
+                message:"Successfully deleted"
+            })
+            }catch(error){
+                console.log(error)
+            }
+        }
     
 module.exports.registerUser=registerUser
 module.exports.loginUser=loginUser
 module.exports.getallusers=getallusers
 module.exports.getpaticularuser=getpaticularuser
+module.exports.deleteUser=deleteUser
 
 
 module.exports.addhealth_data=addhealth_data
+
+

@@ -33,7 +33,7 @@ app.get('/',(req,res)=>{
 
 
 //SERVER CONNECTION
-app.listen(process.env.PORT||5000,() =>{
+app.listen(process.env.PORT||8000,() =>{
     console.log('Server started on port ');
 })
 
