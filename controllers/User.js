@@ -1,5 +1,6 @@
 const User=require('../models/user.js')
-const bcrypt=require('bcryptjs')
+const bcrypt=require('bcryptjs');
+const { Filter } = require('admin-bro');
 
 
 const registerUser= async (req,res,next) => {
@@ -69,7 +70,7 @@ const registerUser= async (req,res,next) => {
 
         const getallusers= async (req,res,next) => {
             try{
-                const users=await User.find();
+                const users=await User.findOne({'role':'normal'});
                 res.status(200).json(users);
             }catch(error){
                 res.status(400).json(error);

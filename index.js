@@ -22,14 +22,15 @@ try{
 
 
 
-const userrouter=require("./routes/User.js");
-app.use('/user',userrouter)
+
 
 
 app.get('/',(req,res)=>{
     res.send("Server is running successful")
 })
 
+const userrouter=require("./routes/User.js");
+app.use('/user',userrouter)
 
 
 //SERVER CONNECTION

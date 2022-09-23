@@ -6,11 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
-    
   },
   "author": "Ankit Mishra",
   "license": "ISC",
   "dependencies": {
+    "admin-bro": "^4.0.1",
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
     "dotenv": "^16.0.1",
