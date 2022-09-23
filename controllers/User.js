@@ -69,7 +69,7 @@ const registerUser= async (req,res,next) => {
 
         const getallusers= async (req,res,next) => {
             try{
-                const users=await User.find();
+                const users=await User.find({'role':'normal'});
                 res.status(200).json(users);
             }catch(error){
                 res.status(400).json(error);
