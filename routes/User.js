@@ -8,8 +8,11 @@ router.post('/loginuser',user_Act.loginUser)
 router.get('/getalluser',user_Act.getallusers)
 router.get('/getuser/:id',user_Act.getpaticularuser)
 router.delete('/:id/delete',user_Act.deleteUser)
+router.patch('/:id/updateuser',user_Act.updateuser)
 
 router.post('/:id/addhealthdata',user_Act.addhealth_data)
+
+
 
 
 

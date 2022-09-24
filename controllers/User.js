@@ -2,18 +2,19 @@ const User=require('../models/user.js')
 const bcrypt=require('bcryptjs')
 
 
+
+
 const registerUser= async (req,res,next) => {
-    const{name,password,role,emailid,phone}= req.body;
+    const{name,password,role,code_no}= req.body;
     if(password.length<6){
         return res.status(400).json({message:"Password must be atleast 6 characters long"});
     }
     bcrypt.hash(password,10).then(async(hash) => {
         await User.create({
+            code_no:code_no,
             name:name,
             password:hash,
             role:role,
-            emailid:emailid,
-            phone:phone,
             health_report:[],
             
            
@@ -39,12 +40,12 @@ const registerUser= async (req,res,next) => {
 
 
     const loginUser= async (req,res,next) => {
-        const{emailid,password}= req.body;
-        if(!emailid||!password){
-            return res.status(400).json({message:"emailid or password not present"});
+        const{code_no,password}= req.body;
+        if(!code_no||!password){
+            return res.status(400).json({message:"Code or password not present"});
         }
         try{
-            const user=await User.findOne({emailid:emailid});
+            const user=await User.findOne({code_no:code_no});
             if(!user){
                 res.status(400).json({
                     message:"Login not successful",
@@ -130,14 +131,45 @@ const registerUser= async (req,res,next) => {
                 console.log(error)
             }
         }
+
+
+        const updateuser=async(req,res)=>{
+            const{id}=req.params;
+            const{name,emailid,phone,ip_no,op_no,DO_admission,DO_surgery,DO_followup}=req.body
+            try{
+                const user=await User.findByIdAndUpdate(id,{
+                    name:name,
+                    emailid:emailid,
+                    phone:phone,
+                    ip_no:ip_no,
+                    op_no:op_no,
+                    DO_admission:DO_admission,
+                    DO_surgery:DO_surgery,
+                    DO_followup:DO_followup
+
+
+                })
+                
+                res.status(200).json({
+                    message:"User Updated Successfully",
+                    user:user
+                })
+                
+            }catch(error){
+
+            }
+        }
+
     
 module.exports.registerUser=registerUser
 module.exports.loginUser=loginUser
 module.exports.getallusers=getallusers
 module.exports.getpaticularuser=getpaticularuser
 module.exports.deleteUser=deleteUser
+module.exports.updateuser=updateuser
 
 
 module.exports.addhealth_data=addhealth_data
+
 
 
