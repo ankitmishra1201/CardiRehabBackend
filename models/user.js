@@ -60,6 +60,25 @@ const UserSchema = mongoose.Schema({
             type: String,
             default: "N/A"
         },
+        question5: {
+            type: String,
+            required: true
+
+        },
+        question6: {
+            type: String,
+            required: true
+
+        },
+        question6_reason: {
+            type: String,
+            default: "N/A"
+        },
+        question7: {
+            type: String,
+            required: true
+
+        },
 
 
     }],

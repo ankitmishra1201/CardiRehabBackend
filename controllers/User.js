@@ -6,9 +6,7 @@ const bcrypt=require('bcryptjs')
 
 const registerUser= async (req,res,next) => {
     const{name,password,role,code_no}= req.body;
-    if(password.length<6){
-        return res.status(400).json({message:"Password must be atleast 6 characters long"});
-    }
+    
     bcrypt.hash(password,10).then(async(hash) => {
         await User.create({
             code_no:code_no,
@@ -95,7 +93,7 @@ const registerUser= async (req,res,next) => {
 
         const addhealth_data= async (req,res,next) => {
             const{id}=req.params;
-            const{datetime,question1,question2,question3,question4,question3_reason,question4_reason}=req.body;
+            const{datetime,question1,question2,question3,question4,question3_reason,question4_reason,question5,question6,question7,question6_reason}=req.body;
             try{
                 const user=await User.findById(id);
                 user.health_report.push({
@@ -104,8 +102,12 @@ const registerUser= async (req,res,next) => {
                     question2:question2,
                     question3:question3,
                     question4:question4,
+                    question5:question5,
+                    question6:question6,
+                    question7:question7,
                     question3_reason:question3_reason,
                     question4_reason:question4_reason,
+                    question6_reason:question6_reason
                 });
                 await user.save();
                 res.status(200).json({
