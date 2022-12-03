@@ -93,7 +93,7 @@ const registerUser= async (req,res,next) => {
 
         const addhealth_data= async (req,res,next) => {
             const{id}=req.params;
-            const{datetime,question1,question2,question3,question4,question3_reason,question4_reason,question5,question6,question7,question6_reason}=req.body;
+            const{datetime,question1,question2,question3,question4,question3_reason,question4_reason,question5,question6,question7,question6_reason,question7_reason}=req.body;
             try{
                 const user=await User.findById(id);
                 user.health_report.push({
@@ -107,7 +107,8 @@ const registerUser= async (req,res,next) => {
                     question7:question7,
                     question3_reason:question3_reason,
                     question4_reason:question4_reason,
-                    question6_reason:question6_reason
+                    question6_reason:question6_reason,
+                    question7_reason:question7_reason
                 });
                 await user.save();
                 res.status(200).json({

@@ -79,6 +79,11 @@ const UserSchema = mongoose.Schema({
             required: true
 
         },
+        question7_reason: {
+            type: String,
+            default:"N/A"
+
+        },
 
 
     }],
