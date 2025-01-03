@@ -1,20 +1,27 @@
-const user_Act=require("../controllers/User.js")
-const express=require("express");
+const express = require('express');
+const user_Act = require('../controllers/User');
+const { protect, adminOnly } = require('../middleware/auth'); // Import protect and adminOnly middlewares
+const router = express.Router();
 
-const router=express.Router()
+// Register User (Only admin can do this)
+router.post('/registeruser', protect, adminOnly, user_Act.registerUser);
 
-router.post('/registeruser',user_Act.registerUser)
-router.post('/loginuser',user_Act.loginUser)
-router.get('/getalluser',user_Act.getallusers)
-router.get('/getuser/:id',user_Act.getpaticularuser)
-router.delete('/:id/delete',user_Act.deleteUser)
-router.patch('/:id/updateuser',user_Act.updateuser)
+// Login User (returns JWT token)
+router.post('/loginuser', user_Act.loginUser);
 
-router.post('/:id/addhealthdata',user_Act.addhealth_data)
+// Get all users with the role 'normal'
+router.get('/getallusers', protect, adminOnly, user_Act.getallusers);
 
+// Get a specific user by ID
+router.get('/getuser/:id', protect, user_Act.getpaticularuser);
 
+// Delete a user by ID (Only admin can do this)
+router.delete('/:id/delete', protect, adminOnly, user_Act.deleteUser);
 
+// Update user details by ID (Only admin can do this)
+router.patch('/:id/updateuser', protect, adminOnly, user_Act.updateuser);
 
+// Add health data to a user's report by ID (Health data can be added by anyone logged in)
+router.post('/:id/addhealthdata', protect, user_Act.addhealth_data);
 
-
-module.exports=router
+module.exports = router;
